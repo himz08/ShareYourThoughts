@@ -1,0 +1,43 @@
+<!-- <div class="container"> -->
+    <div class="card">
+        <div class="postBox">
+            <div class="col-12 col-sm-12 header">
+                <h4> What's on your mind ?</h4>
+            </div>
+            <div class="col-12 col-sm-12 body">
+                <div class="comment-container">
+                    <div class="comment-form">
+                        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+                                <div class="form-group">
+                                        <input class="form-control" placeholder="Tittle" formControlName="postTittle"
+                                            [ngClass]="{ 'is-invalid': submitted && postForm.controls['post'].errors }">
+                                        <div class="invalid-feedback"
+                                            *ngIf="submitted && postForm.controls['postTittle'].errors">     
+                                            <div *ngIf="postForm.controls['postTittle'].errors.maxlength">Tittle must be at
+                                                most 20 characters</div>
+                                        </div>
+                                    </div>
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="Any thoughts? Write it here." formControlName="post"
+                                    [ngClass]="{ 'is-invalid': submitted && postForm.controls['post'].errors }"></textarea>
+                                <div class="invalid-feedback"
+                                    *ngIf="submitted && postForm.controls['post'].errors">
+                                    <div *ngIf="postForm.controls['post'].errors.required">Post is required
+                                    </div>
+                                    <div *ngIf="postForm.controls['post'].errors.minlength">Post must be at
+                                        least 6 characters</div>
+                                    <div *ngIf="postForm.controls['post'].errors.maxlength">Post must be at
+                                        most 100 characters</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn post-btn">Post Status</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->

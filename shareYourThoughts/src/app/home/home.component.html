@@ -1,1 +1,35 @@
-<p>home works!</p>
+<div class="main-container" [class.is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="toolbar">
+    <!-- <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button> -->
+    <span class="userIcon">
+      <fa-icon [icon]="faUserCircle"></fa-icon>
+    </span>
+    <h2 class="user-name hoverEffectToolbar"> {{userName || 'Guest'}}</h2>
+    <h2 class="app-name"><span class="hoverEffectToolbar">ShareYourThoughts</span></h2>
+    <span (click)="onLogoutClick()" class="hoverEffectToolbar logoutBtn"> Logout</span>
+    <span (click)="onLogoutClick()" class="hoverEffectToolbar logoutBtn"> Login</span>
+
+  </mat-toolbar>
+  <div class="header">
+    <div class="profileInfo"> 
+      <div class="profilePic">
+      </div>
+      <div class="userName">
+        {{ userName || 'Guest'}}
+      </div>
+    </div>
+    <div class="appStatusBox">
+      <app-post-status></app-post-status>
+    </div>
+  </div>
+
+  <div class="newFeedsHeading">
+      New Feeds
+  </div>
+
+  <div class="newFeedsContainer">
+      <app-new-feeds></app-new-feeds>
+      <app-feed-overview></app-feed-overview>
+  </div>
+
+</div>
