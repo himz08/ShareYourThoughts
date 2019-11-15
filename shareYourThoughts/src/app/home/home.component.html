@@ -6,8 +6,8 @@
     </span>
     <h2 class="user-name hoverEffectToolbar"> {{userName || 'Guest'}}</h2>
     <h2 class="app-name"><span class="hoverEffectToolbar">ShareYourThoughts</span></h2>
-    <span (click)="onLogoutClick()" class="hoverEffectToolbar logoutBtn"> Logout</span>
-    <span (click)="onLogoutClick()" class="hoverEffectToolbar logoutBtn"> Login</span>
+    <span *ngIf="isLoggedIn" (click)="onLoginLogoutClick(1)" class="hoverEffectToolbar logoutBtn"> Logout</span>
+    <span *ngIf="!isLoggedIn" (click)="onLoginLogoutClick(2)" class="hoverEffectToolbar logoutBtn"> Login</span>
 
   </mat-toolbar>
   <div class="header">

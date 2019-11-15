@@ -12,6 +12,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FeedOverviewComponent } from './home/new-feeds/feed-overview/feed-overview.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthComponent } from './auth/auth.component';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app.routing.module';
+import { LoaderComponent } from './shared/loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,16 +24,20 @@ import { FeedOverviewComponent } from './home/new-feeds/feed-overview/feed-overv
     NewFeedsComponent,
     FeedOverviewComponent,
     PostStatusComponent,
+    AuthComponent,
     ViewDetailsComponent,
-    CommentingSectionComponent
+    CommentingSectionComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
     MaterialModuleBundle,
     ReactiveFormsModule,
     FontAwesomeModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

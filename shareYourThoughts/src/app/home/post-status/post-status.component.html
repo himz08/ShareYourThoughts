@@ -7,7 +7,7 @@
             <div class="col-12 col-sm-12 body">
                 <div class="comment-container">
                     <div class="comment-form">
-                        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+                        <form [formGroup]="postForm" (ngSubmit)="submitPost()">
                                 <div class="form-group">
                                         <input class="form-control" placeholder="Tittle" formControlName="postTittle"
                                             [ngClass]="{ 'is-invalid': submitted && postForm.controls['post'].errors }">
@@ -40,4 +40,10 @@
             </div>
         </div>
     </div>
+
+
+    <button class="btn btn-primary" (click)="updateP()"> Update Profile</button>
+    <button class="btn btn-primary" (click)="getD()"> Get Details</button>
+
+
 <!-- </div> -->
