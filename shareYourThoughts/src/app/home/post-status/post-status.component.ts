@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonServiceService } from '../../shared/common-service.service';
 import { PostStatusInfo } from '../../Interfaces/interface';
 import { AuthService } from 'src/app/auth/auth.service';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 
 
@@ -30,7 +30,7 @@ export class PostStatusComponent implements OnInit {
 
   createForm() {
     this.postForm = this.formBuilder.group({
-      'post': ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
+      'post': ['', [Validators.required, Validators.minLength(6), Validators.maxLength(500)]],
       'postTittle': ['', [Validators.required, Validators.maxLength(20)]]
 
     });
@@ -44,15 +44,22 @@ export class PostStatusComponent implements OnInit {
     if (this.postForm.invalid) {
       return false;
     } else {
-      this.postInfo = {
-        userId : 'abc',
-        message : this.postForm.controls['post'].value,
-        dateTime : new Date(),
-        userName : 'Himanshu',
-        tittle : this.postForm.controls['postTittle'].value
-      }
-      this.commonService.postStatus(this.postInfo);
-      console.log(this.postInfo);
+      this.authService.user.pipe(take(1)).subscribe(user => {
+        const postData : PostStatusInfo = {
+          userId : user.id,
+          message : this.postForm.controls['post'].value,
+          dateTime : new Date(),
+          userName : user.email,
+          tittle : this.postForm.controls['postTittle'].value,
+          picUrl : ''     
+           }
+           this.commonService.postStatus(postData);
+           console.log(postData);
+
+      }, error => {
+            this.commonService.openSnackBar(error.error, 'Dismiss')
+      })
+
       this.createForm();
       this.submitted = false;
     }

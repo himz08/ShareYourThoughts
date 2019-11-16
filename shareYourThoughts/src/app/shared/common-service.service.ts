@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PostStatusInfo } from '../Interfaces/interface';
 import { MatSnackBar } from '@angular/material';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,12 +15,14 @@ export class CommonServiceService {
       console.log(data);
     },
     error => {
-      console.log('Error',error)
+      this.openSnackBar(error.error.error, 'Dismiss')
     })
   }
 
   fetchPosts() {
-
+    return this.http.get('https://shareyourthoughts-4712f.firebaseio.com/posts.json').pipe(map(data => {
+      return Object.values(data).sort( (a,b) => <any>new Date(b.dateTime) - <any>new Date(a.dateTime))
+    }))
   }
 
   openSnackBar(message: string, action: string) {

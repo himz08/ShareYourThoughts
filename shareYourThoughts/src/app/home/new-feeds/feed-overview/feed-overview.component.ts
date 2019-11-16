@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { PostStatusInfo } from 'src/app/Interfaces/interface';
+import { CommonServiceService } from 'src/app/shared/common-service.service';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { faComments } from '@fortawesome/free-solid-svg-icons';
+
+
 
 @Component({
   selector: 'app-feed-overview',
@@ -7,9 +14,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedOverviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private commonService : CommonServiceService) { }
+
+  posts : PostStatusInfo[];
+  faThumbsUp = faThumbsUp;
+  faThumbsDown = faThumbsDown;
+  faComments = faComments;
+
+  @Input() public postInfo : PostStatusInfo = {
+    dateTime : null,
+    tittle : '',
+    message : '',
+    picUrl : '',
+    userId : '',
+    userName : ''
+  };
+   dateTime = new Date(this.postInfo.dateTime);
+
+  // dateTime = new Date()
+ 
 
   ngOnInit() {
+  //   this.commonService.fetchPosts().subscribe(data => {
+  //     console.log(data);
+  // })
   }
-
 }
+

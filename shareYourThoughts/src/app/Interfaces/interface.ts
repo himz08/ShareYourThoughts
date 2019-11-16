@@ -4,10 +4,10 @@ export interface PostStatusInfo {
     dateTime : Date;
     tittle : string;
     message : string;
+    picUrl : string;
 }
 
 export interface AuthResponseData {
-
     idToken : string,
     email : string,
     refreshToken : string,

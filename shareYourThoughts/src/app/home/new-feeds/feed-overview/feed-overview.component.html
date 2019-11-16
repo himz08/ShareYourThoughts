@@ -1,16 +1,42 @@
 <div class="feed-overview-container">
-    <div class="author-name">
-        Posted by : Himanshu
-    </div>
-    <div class="post-tittle">
-        Jab tak hai jaan
-    </div>
-    <div class="post-content">
-        SOMETHIN........
-    </div>
-    
-    <div class="time-likes">
-        TIme : 7pm <span class="likes"> 7 likes</span>
-    </div>
 
+    <div class="colOne">
+        <div class="displayPic">
+            <div class="picBox">
+
+            </div>
+        </div>
+
+        <div class="displayName">
+            Himanshu
+        </div>
+
+    </div>
+    <div class="colTwo">
+        <div class="timeAndTittle">
+            <div class="postTittle">
+                {{postInfo.tittle || 'Tittle'}}
+            </div>
+            <div class="timeStamp">
+               {{postInfo.dateTime | date : 'short'}}
+            </div>
+        </div>
+
+        <div class="postContent">
+            {{postInfo.message || '....'}}
+        </div>
+
+        <div class="likeCommentBlock">
+            <div class="like">
+                  <span class="hoverEffect">  <fa-icon [icon]="faThumbsUp"></fa-icon> Like </span> ( {{numberOfLikes || 4}}  )
+            </div>
+
+            <div class="disLike">
+                    <span class="hoverEffect">  <fa-icon [icon]="faThumbsDown"></fa-icon> Dislike </span>  ({{noOfDislikes || 5 }})
+            </div>
+            <div class="comments">
+                    <fa-icon [icon]="faComments"></fa-icon> View Comments
+            </div>
+        </div>
+    </div>
 </div>

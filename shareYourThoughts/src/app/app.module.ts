@@ -28,6 +28,7 @@ import { LoaderComponent } from './shared/loader/loader.component';
     ViewDetailsComponent,
     CommentingSectionComponent,
     LoaderComponent
+    
   ],
   imports: [
     BrowserModule,

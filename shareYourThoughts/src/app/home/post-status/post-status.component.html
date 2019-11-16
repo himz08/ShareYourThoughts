@@ -10,7 +10,7 @@
                         <form [formGroup]="postForm" (ngSubmit)="submitPost()">
                                 <div class="form-group">
                                         <input class="form-control" placeholder="Tittle" formControlName="postTittle"
-                                            [ngClass]="{ 'is-invalid': submitted && postForm.controls['post'].errors }">
+                                            [ngClass]="{ 'is-invalid': submitted && postForm.controls['postTittle'].errors }">
                                         <div class="invalid-feedback"
                                             *ngIf="submitted && postForm.controls['postTittle'].errors">     
                                             <div *ngIf="postForm.controls['postTittle'].errors.maxlength">Tittle must be at
@@ -27,7 +27,7 @@
                                     <div *ngIf="postForm.controls['post'].errors.minlength">Post must be at
                                         least 6 characters</div>
                                     <div *ngIf="postForm.controls['post'].errors.maxlength">Post must be at
-                                        most 100 characters</div>
+                                        most 500 characters</div>
                                 </div>
                             </div>
 
