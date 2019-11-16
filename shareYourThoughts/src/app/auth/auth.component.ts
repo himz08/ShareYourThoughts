@@ -6,7 +6,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { AuthResponseData } from '../Interfaces/interface'
+import { AuthResponseData, UpdateProfile } from '../Interfaces/interface'
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -71,10 +71,16 @@ export class AuthComponent implements OnInit {
       console.log(signupMode);
       this.isLoading = true;
       obs.subscribe( data => {
-        if(!signupMode){
+        if(signupMode){
           const name = this.loginForm.controls['name'].value;
           const picUrl = this.loginForm.controls['picUrl'].value;
-          this.authService.updateProfile(name, picUrl)
+          const token = data.idToken;
+          this.authService.updateProfile(name, picUrl,token).subscribe((res : UpdateProfile) => {
+            console.log('Profile', res);
+            this.authService.handleAuthentication(data, res.displayName, res.photoUrl );
+        }, error => {
+            console.log(error)
+        });
         }
         this.router.navigate(['/home']);
         this.isLoading = false;

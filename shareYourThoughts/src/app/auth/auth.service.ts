@@ -4,7 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
-import { AuthResponseData } from '../Interfaces/interface'
+import { AuthResponseData, UpdateProfile } from '../Interfaces/interface'
 import { environment } from '../../environments/environment'
 
 
@@ -26,7 +26,7 @@ export class AuthService {
             password : pass,
             returnSecureToken : true
         }).pipe(catchError(this.handleError), tap(resData => {
-            this.handleAuthentication(resData);
+            // this.handleAuthentication(resData);
         }))
 
     }
@@ -37,29 +37,25 @@ export class AuthService {
             password : pass,
             returnSecureToken : true
         }).pipe(catchError(this.handleError) , tap(resData => {
-            this.handleAuthentication(resData);
+            // this.handleAuthentication(resData);
         }))
     }
 
-    updateProfile(name : string, picUrl : string){
-        const loadedUser = this.fetchUserFromLocalStorage();
-        if(loadedUser){
-            this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=' + environment.API_KEY ,{
-                idToken : loadedUser.token,
+    updateProfile(name : string, picUrl : string , token : string){
+        // const loadedUser = this.fetchUserFromLocalStorage();
+        // if(loadedUser){
+          return  this.http.post<UpdateProfile>('https://identitytoolkit.googleapis.com/v1/accounts:update?key=' + environment.API_KEY ,{
+                idToken : token,
                 displayName : name,
                 photoUrl : picUrl,
                 deleteAttribute : [],
                 returnSecureToken : true
-             }).subscribe(data => {
-                 console.log('Profile', data)
-             }, error => {
-                 console.log(error)
              })
-        }
+        // }
 
-        else {
-            console.log('Errrrro');
-        }
+        // else {
+        //     console.log('Errrrro');
+        // }
 
 
     }
@@ -92,13 +88,15 @@ export class AuthService {
         const user : {
             email : string,
             id : string,
+            displayName : string,
+            photoUrl : string,
             _token : string,
             _tokenExpirationDate : string
         } = JSON.parse(localStorage.getItem('user'));
         if(!user){
             return;
         }
-        const loadedUser = new User(user.email, user.id, user._token, new Date(user._tokenExpirationDate));
+        const loadedUser = new User(user.email, user.id, user.displayName, user.photoUrl, user._token, new Date(user._tokenExpirationDate));
         this.user.next(loadedUser);
         const remainingExpirationTime = new Date(user._tokenExpirationDate).getTime() - (new Date().getTime())
         this.autoLogout(remainingExpirationTime);
@@ -122,9 +120,9 @@ export class AuthService {
         }
      }
 
-     private handleAuthentication(resposneData : AuthResponseData){
+      handleAuthentication(resposneData : AuthResponseData, name : string, picUrl : string){
          const expirationTime = new Date( new Date().getTime() + (+resposneData.expiresIn * 1000));
-         const user = new User(resposneData.email , resposneData.localId , resposneData.idToken, expirationTime); 
+         const user = new User(resposneData.email , resposneData.localId, name, picUrl , resposneData.idToken, expirationTime); 
          console.log(user);
          this.user.next(user);
          this.autoLogout(+resposneData.expiresIn * 1000)
@@ -135,11 +133,13 @@ export class AuthService {
         const user : {
             email : string,
             id : string,
+            displayName : string,
+            photoUrl : string,
             _token : string,
             _tokenExpirationDate : string
         } = JSON.parse(localStorage.getItem('user'));
         if(!!user){
-            return new User(user.email, user.id, user._token, new Date(user._tokenExpirationDate));
+            return new User(user.email, user.id, user.displayName, user.photoUrl, user._token, new Date(user._tokenExpirationDate));
         }
         else {
             return null;

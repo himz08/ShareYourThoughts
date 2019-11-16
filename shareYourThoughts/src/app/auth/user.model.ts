@@ -1,6 +1,8 @@
 export class User {
     constructor (public email : string,
         public id : string,
+        public displayName : string,
+        public photoUrl : string,
         private _token : string,
         private _tokenExpirationDate : Date
         ) {}

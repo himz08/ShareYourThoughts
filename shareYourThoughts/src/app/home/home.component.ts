@@ -3,6 +3,7 @@ import {MediaMatcher} from '@angular/cdk/layout';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
+import { CommonServiceService } from '../shared/common-service.service';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +13,22 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit, OnDestroy {
 
   faUserCircle = faUserCircle;
-  userName : string;
   mobileQuery: MediaQueryList;
   isLoggedIn : boolean = false;
+ public user : {
+    displayName : string,
+    photoUrl : string
+    
+  } = {
+    displayName : 'Guest',
+    photoUrl : ''
+  }
 
   constructor( media: MediaMatcher,
     private cdr: ChangeDetectorRef,
     private autService : AuthService,
-    private route : Router
+    private route : Router,
+    private commonService : CommonServiceService
     ) { 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => cdr.detectChanges();
@@ -32,12 +41,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.autService.user.subscribe(user => {
       console.log('Called', user)
       this.isLoggedIn = !!user;
+      if(user) {
+        this.user.displayName = user.displayName;
+        this.user.photoUrl = user.photoUrl;
+      }
+      else {
+        this.user.displayName = 'Guest',
+        this.user.photoUrl = ''
+      }
     })
   }
 
   onLoginLogoutClick(id : number){
     if(id == 1){
       this.autService.logout();
+      this.commonService.openSnackBar('Logout Successful', 'Dismiss')
     }
     else if (id == 2) {
       console.log('Hi')
