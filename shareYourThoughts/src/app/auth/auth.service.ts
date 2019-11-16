@@ -5,7 +5,6 @@ import { throwError, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
 import { AuthResponseData } from '../Interfaces/interface'
-import { CommonServiceService } from '../shared/common-service.service';
 import { environment } from '../../environments/environment'
 
 
@@ -18,7 +17,7 @@ export class AuthService {
     user = new BehaviorSubject<User>(null);
     private tokenExpirationTimer : any;
 
-    constructor(private http : HttpClient, private route : Router,private commonService : CommonServiceService){
+    constructor(private http : HttpClient, private route : Router){
     }
 
     signup(email : string, pass : string){
@@ -42,19 +41,26 @@ export class AuthService {
         }))
     }
 
-    updateProfile(){
+    updateProfile(name : string, picUrl : string){
         const loadedUser = this.fetchUserFromLocalStorage();
-        this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=' + environment.API_KEY ,{
-        idToken : loadedUser.token,
-        displayName : 'Himanshu',
-        photoUrl : '',
-        deleteAttribute : [],
-        returnSecureToken : true
-     }).subscribe(data => {
-         console.log('Profile', data)
-     }, error => {
-         console.log(error)
-     })
+        if(loadedUser){
+            this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=' + environment.API_KEY ,{
+                idToken : loadedUser.token,
+                displayName : name,
+                photoUrl : picUrl,
+                deleteAttribute : [],
+                returnSecureToken : true
+             }).subscribe(data => {
+                 console.log('Profile', data)
+             }, error => {
+                 console.log(error)
+             })
+        }
+
+        else {
+            console.log('Errrrro');
+        }
+
 
     }
 
@@ -132,13 +138,18 @@ export class AuthService {
             _token : string,
             _tokenExpirationDate : string
         } = JSON.parse(localStorage.getItem('user'));
-        return new User(user.email, user.id, user._token, new Date(user._tokenExpirationDate));
+        if(!!user){
+            return new User(user.email, user.id, user._token, new Date(user._tokenExpirationDate));
+        }
+        else {
+            return null;
+        }
      }
 
      logout(){
          this.user.next(null);
          localStorage.clear();
-        this.commonService.openSnackBar('Logout Successful', 'Dismiss')
+        // this.commonService.openSnackBar('Logout Successful', 'Dismiss')
         //  this.route.navigate(['/auth']);
          if(this.tokenExpirationTimer){
                 clearTimeout(this.tokenExpirationTimer)       

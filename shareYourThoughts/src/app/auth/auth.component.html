@@ -6,6 +6,27 @@
       <img class="logoImage" src="../../../assets/logo.png">
     </div>
     <form class="pd-12" [formGroup]="loginForm">
+      <div *ngIf="!isLoginMode">
+        <div class="form-group">
+          <label for="Name">Name*</label>
+          <input class="form-control" type="text" matInput placeholder="John" formControlName="name" />
+          <div class="warning" *ngIf="!loginForm.get('name').valid && loginForm.get('name').touched">
+            Name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="picUrl">Displaypic URL</label>
+          <input class="form-control" type="text" matInput placeholder="URL" formControlName="picUrl" />
+        </div>
+
+
+        <div class="form-group">
+          <label for="InputEmail1">About You</label>
+          <input class="form-control" type="email" matInput placeholder="About you" formControlName="aboutYou" />
+
+        </div>
+      </div>
       <div class="form-group">
         <label for="InputEmail1">Email address</label>
         <input class="form-control" type="email" matInput placeholder="abc@gmail.com" formControlName="email" />
@@ -21,15 +42,21 @@
         </div>
       </div>
       <div class="options">
-        <button (click)="onSubmit(false)" *ngIf="isLoginMode" [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Log in</button>
+        <button (click)="onSubmit(false)" *ngIf="isLoginMode" [disabled]="!loginForm.valid" type="submit"
+          class="btn btn-primary">Log in</button>
         <span (click)="switchMode()" *ngIf="isLoginMode"> New User ? Signup</span>
 
 
-        <button (click)="onSubmit(true)" *ngIf="!isLoginMode" [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Sign up</button>
-        <span (click)="switchMode()"*ngIf="!isLoginMode"> Already a user ? Login</span>
+        <button (click)="onSubmit(true)" *ngIf="!isLoginMode" [disabled]="!loginForm.valid" type="submit"
+          class="btn btn-primary">Sign up</button>
+        <span (click)="switchMode()" *ngIf="!isLoginMode"> Already a user ? Login</span>
       </div>
 
     </form>
 
+    <div (click)="backtoFeeds()" class="backToFeedsBtn">
+      <span> Back to Feeds --></span>
+    </div>
   </div>
+
 </div>

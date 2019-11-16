@@ -83,7 +83,7 @@
   font-weight: 500;
   box-shadow: 0px 0px 8px 3px #e0e0e0;
 }
-  @media only screen and (max-width: 425px) {
+  @media only screen and (max-width: 550px) {
     .sidenav {
         width: 40%;
     }
@@ -92,6 +92,26 @@
       font-size: 23px;
     margin-bottom: 0px;
     margin-left: 18px;
+}
+
+.header {
+  flex-direction: column !important;
+}
+.profileInfo {
+  min-height: 130px;
+  margin: auto;
+  margin-top: 70px;
+}
+
+.user-name {
+  display: none;
+}
+
+.app-name{
+  font-size: 15px !important;
+}
+ .logoutBtn {
+  font-size: 15px;
 }
     }
 

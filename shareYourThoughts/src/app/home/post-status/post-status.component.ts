@@ -51,16 +51,21 @@ export class PostStatusComponent implements OnInit {
           dateTime : new Date(),
           userName : user.email,
           tittle : this.postForm.controls['postTittle'].value,
-          picUrl : ''     
+          picUrl : '' ,
+          likes : 0,
+          disLikes : 0    
            }
            this.commonService.postStatus(postData);
+           this.createForm();
            console.log(postData);
+           this.commonService.newStatusPosted();
 
       }, error => {
-            this.commonService.openSnackBar(error.error, 'Dismiss')
+            this.commonService.openSnackBar(error.error, 'Dismiss');
+            this.createForm();
+
       })
 
-      this.createForm();
       this.submitted = false;
     }
   }
@@ -74,7 +79,7 @@ export class PostStatusComponent implements OnInit {
 
 
 updateP(){
-  this.authService.updateProfile();
+  // this.authService.updateProfile();
 }
 
 getD() {

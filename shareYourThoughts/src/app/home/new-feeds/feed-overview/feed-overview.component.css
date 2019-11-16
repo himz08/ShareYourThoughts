@@ -101,11 +101,9 @@
 }
 
 .disLike {
-    margin-left: 5px;
 }
 
 .comments {
-    margin-left: 5px;
      color: #93b9d1;
 }
 
@@ -118,4 +116,57 @@
 .hoverEffect:hover{
     color: #666;
     cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+    .likeCommentBlock {
+        width: 100%;
+    }
+  }
+
+@media only screen and (max-width : 550px) {
+    .feed-overview-container {
+        width: 95%;
+        padding-left: 0px;
+    }
+
+    .colOne {
+        width: 90px;
+    }
+    .picBox {
+        width: 60px;
+        height: 60px;
+    }
+
+    .timeStamp{
+        font-size: 8px;
+    }
+
+    .postTittle {
+        font-size: 16px;
+    }
+    .postContent {
+        font-size: 12px;
+    }
+
+    .likeCommentBlock {
+        font-size: 10px;
+    }
+
+}
+
+@media only screen and (max-width : 550px) {
+    .likeCommentBlock {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .disLike {
+        margin-left: 30px;
+        margin-bottom: 5px;
+    }
+
+    .feed-overview-container {
+        padding-bottom: 10px;
+    }
 }

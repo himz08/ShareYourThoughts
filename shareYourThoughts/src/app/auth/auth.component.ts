@@ -36,7 +36,10 @@ export class AuthComponent implements OnInit {
     // loginForm is structured here and linked with view using binding
     this.loginForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]), // Validators.required will make the field required
-      'password': new FormControl(null, Validators.required)
+      'password': new FormControl(null, Validators.required),
+      'name' : new FormControl(null, Validators.required),
+      'picUrl' : new FormControl(null),
+      'aboutYou' : new FormControl(null)
     })
 
   }
@@ -45,6 +48,10 @@ export class AuthComponent implements OnInit {
   switchMode(){
     this.isLoginMode = !this.isLoginMode;
     console.log(this.isLoginMode);
+  }
+
+  backtoFeeds() {
+    this.router.navigate(['/home'])
   }
 
 
@@ -62,9 +69,13 @@ export class AuthComponent implements OnInit {
          console.log('Signup...')
       }
       console.log(signupMode);
-
       this.isLoading = true;
       obs.subscribe( data => {
+        if(!signupMode){
+          const name = this.loginForm.controls['name'].value;
+          const picUrl = this.loginForm.controls['picUrl'].value;
+          this.authService.updateProfile(name, picUrl)
+        }
         this.router.navigate(['/home']);
         this.isLoading = false;
         if (this.isLoginMode){

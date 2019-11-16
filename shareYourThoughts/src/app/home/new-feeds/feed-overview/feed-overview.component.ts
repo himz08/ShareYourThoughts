@@ -27,7 +27,9 @@ export class FeedOverviewComponent implements OnInit {
     message : '',
     picUrl : '',
     userId : '',
-    userName : ''
+    userName : '',
+    likes : 0,
+    disLikes : 0
   };
    dateTime = new Date(this.postInfo.dateTime);
 

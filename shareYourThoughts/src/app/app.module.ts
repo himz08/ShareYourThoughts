@@ -17,6 +17,7 @@ import { AuthComponent } from './auth/auth.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { LoaderTwoComponent } from './shared/loader-two/loader-two.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { LoaderComponent } from './shared/loader/loader.component';
     AuthComponent,
     ViewDetailsComponent,
     CommentingSectionComponent,
-    LoaderComponent
+    LoaderComponent,
+    LoaderTwoComponent
     
   ],
   imports: [

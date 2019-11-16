@@ -7,3 +7,21 @@
 .post-btn:hover {
     background: #ced3d7;
 }
+
+@media only screen and (max-width: 455px) {
+    h4 {
+        font-size: 1.2rem;
+    }
+
+    .card {
+        padding: 12px !important;
+    }
+
+    .body {
+        padding : 5px;
+    }
+
+    .header {
+        padding : 0px 5px;
+    }
+}

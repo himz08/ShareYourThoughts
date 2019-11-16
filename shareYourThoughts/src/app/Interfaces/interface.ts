@@ -5,6 +5,8 @@ export interface PostStatusInfo {
     tittle : string;
     message : string;
     picUrl : string;
+    likes : number;
+    disLikes : number;
 }
 
 export interface AuthResponseData {
