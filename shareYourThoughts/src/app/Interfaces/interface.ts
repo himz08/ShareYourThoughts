@@ -7,6 +7,7 @@ export interface PostStatusInfo {
     picUrl: string;
     likes: string[];
     disLikes: string[];
+    postId: string;
 }
 
 export interface AuthResponseData {
@@ -28,4 +29,32 @@ export interface UpdateProfile {
     idToken: string,
     refreshToken: string,
     expiresIn: string
+}
+
+export interface GetUserDetails {
+    localId: string,
+    email: string,
+    emailVerified: boolean,
+    displayName: string,
+    providerUserInfo: any[]
+    photoUrl: string,
+    passwordHash: string,
+    passwordUpdatedAt: any,
+    validSince: string,
+    disabled: boolean,
+    lastLoginAt: string,
+    createdAt: string,
+    customAuth: boolean
+}
+
+export interface PostComments {
+    userId: string;
+    userName: string;
+    dateTime: Date;
+    message: string;
+    picUrl: string;
+    likes: string[];
+    disLikes: string[];
+    commentId: string;
+    replyComments : PostComments[]
 }

@@ -22,7 +22,7 @@ export class AuthComponent implements OnInit {
   isLoginMode : boolean = true;
   isLoading : boolean = false;
 
-  constructor(private services: CommonServiceService, private router: Router, private authService : AuthService) { }
+  constructor(private services: CommonServiceService, private router: Router, private authService : AuthService,private commonService : CommonServiceService) { }
 
   ngOnInit() {
 
@@ -57,7 +57,7 @@ export class AuthComponent implements OnInit {
 
   onSubmit(signupMode : boolean): void {
     // in service login function is called to check database   
-    
+    console.log(this.loginForm);
     const email = this.loginForm.value.email;
     const pass = this.loginForm.value.password;
     let obs : Observable<AuthResponseData>;
@@ -71,18 +71,31 @@ export class AuthComponent implements OnInit {
       console.log(signupMode);
       this.isLoading = true;
       obs.subscribe( data => {
+        const name = this.loginForm.controls['name'].value;
+        const picUrl = this.loginForm.controls['picUrl'].value;
+        const token = data.idToken;
         if(signupMode){
-          const name = this.loginForm.controls['name'].value;
-          const picUrl = this.loginForm.controls['picUrl'].value;
-          const token = data.idToken;
           this.authService.updateProfile(name, picUrl,token).subscribe((res : UpdateProfile) => {
             console.log('Profile', res);
             this.authService.handleAuthentication(data, res.displayName, res.photoUrl );
         }, error => {
-            console.log(error)
+            console.log(error);
+            return;
         });
         }
-        this.router.navigate(['/home']);
+        else {
+          this.authService.getUserDetails(token).subscribe(userDetails => {
+            console.log(userDetails.users[0]);
+            this.authService.handleAuthentication(data, userDetails.users[0].displayName, userDetails.users[0].photoUrl)
+            // this.authService.handleAuthentication(data, 'check', '')
+
+          },
+          error => {
+            console.log(error);
+            this.commonService.openSnackBar('Error Occured, Please try again.', 'Ok')
+          })
+        }
+        // this.router.navigate(['/home']);
         this.isLoading = false;
         if (this.isLoginMode){
           this.services.openSnackBar('Login Successful !', 'Ok');

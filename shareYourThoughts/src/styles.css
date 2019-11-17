@@ -23,8 +23,7 @@ body{
     margin-left: 60px;
   }
   .comment-container p{
-    background: #e9ebee;
-    padding: 6px 10px;
+    padding: 4px 8px;
   }
   textarea.form-control{
     resize: none;
@@ -55,9 +54,7 @@ body{
     font-size: 12px;
     margin-bottom: 10px;
   }
-  .actions .btn{
-    font-size: 12px;
-  }
+
   .collapsible{
     display: inline-block;
   }

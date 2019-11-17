@@ -5,8 +5,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NewFeedsComponent } from './home/new-feeds/new-feeds.component';
 import { PostStatusComponent } from './home/post-status/post-status.component';
-import { ViewDetailsComponent } from './home/view-details/view-details.component';
-import { CommentingSectionComponent } from './home/view-details/commenting-section/commenting-section.component';
 import { MaterialModuleBundle } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -14,10 +12,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FeedOverviewComponent } from './home/new-feeds/feed-overview/feed-overview.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthComponent } from './auth/auth.component';
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { LoaderTwoComponent } from './shared/loader-two/loader-two.component';
+import { CommentingSectionComponent } from './home/commenting-section/commenting-section.component';
+import { DatacontainerDirective, CommentsComponent } from './home/commenting-section/comments/comments.component';
+import { CommentboxComponent } from './home/commenting-section/commentbox/commentbox.component';
+import { ChildboxComponent } from './home/commenting-section/childbox/childbox.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,10 +27,13 @@ import { LoaderTwoComponent } from './shared/loader-two/loader-two.component';
     FeedOverviewComponent,
     PostStatusComponent,
     AuthComponent,
-    ViewDetailsComponent,
-    CommentingSectionComponent,
     LoaderComponent,
-    LoaderTwoComponent
+    LoaderTwoComponent,
+    CommentingSectionComponent,
+    DatacontainerDirective,
+    CommentsComponent,
+    CommentboxComponent,
+    ChildboxComponent
     
   ],
   imports: [
@@ -43,6 +47,7 @@ import { LoaderTwoComponent } from './shared/loader-two/loader-two.component';
     AppRoutingModule
   ],
   providers: [],
+  entryComponents: [ChildboxComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

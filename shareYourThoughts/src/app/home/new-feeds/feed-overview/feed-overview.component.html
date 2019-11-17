@@ -1,3 +1,4 @@
+<div class="main-container">
 <div class="feed-overview-container">
 
     <div class="colOne">
@@ -6,13 +7,10 @@
                     <!-- <div style="background-image: url(http://i54.tinypic.com/4zuxif.jpg)"></div> -->
             </div>
             <fa-icon *ngIf="!postInfo.picUrl != ''" style="font-size: 50px; color: #aaa;" [icon]="faUserCircle"></fa-icon>
-            
         </div>
-
         <div class="displayName">
             {{postInfo.userName}}
         </div>
-
     </div>
     <div class="colTwo">
         <div class="timeAndTittle">
@@ -30,15 +28,20 @@
 
         <div class="likeCommentBlock">
             <div class="like">
-                  <span class="hoverEffect">  <fa-icon [icon]="faThumbsUp"></fa-icon> Like </span> ( {{numberOfLikes || 4}}  )
+                  <span [ngStyle]="{'color': postInfo.liked == true ? '#53a6db' : '#aaa' }" (click)="onLikeDislikeClick('like')" class="hoverEffect">  <fa-icon  [icon]="faThumbsUp"></fa-icon> Like </span> ( {{(postInfo.likes.length - 1)}}  )
             </div>
 
             <div class="disLike">
-                    <span class="hoverEffect">  <fa-icon [icon]="faThumbsDown"></fa-icon> Dislike </span>  ({{noOfDislikes || 5 }})
+                    <span [ngStyle]="{'color': postInfo.disLiked == true ? '#ba8b8b' : '#aaa' }" (click)="onLikeDislikeClick('disLike')" class="hoverEffect">  <fa-icon  [icon]="faThumbsDown"></fa-icon> Dislike </span>  ({{(postInfo.disLikes.length - 1) }})
             </div>
-            <div class="comments">
+            <div (click)="viewCommentsClick()" class="comments">
                     <fa-icon [icon]="faComments"></fa-icon> View Comments
             </div>
         </div>
     </div>
+
 </div>
+<app-commenting-section *ngIf="viewCommentsClicked"></app-commenting-section>
+
+</div>
+

@@ -1,0 +1,17 @@
+<div class="container">
+        <div class="card">
+            <div class="commentbox">
+            <app-comments [postComment]="comments" (countComments)="recieveCount($event)"></app-comments>
+            <div class="col-12 col-sm-12 header">
+                    <h4>Comments ({{count}})</h4>
+                </div>
+                <div class="col-12 col-sm-12 body">
+                    <div class="comment-container">
+                            <div class="comment-form">
+                                    <app-commentbox (usercomment)="receiveComment($event)"></app-commentbox>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

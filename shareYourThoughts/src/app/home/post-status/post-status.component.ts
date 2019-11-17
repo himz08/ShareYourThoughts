@@ -52,8 +52,9 @@ export class PostStatusComponent implements OnInit {
           userName : user.displayName,
           tittle : this.postForm.controls['postTittle'].value,
           picUrl : user.photoUrl ,
-          likes : [],
-          disLikes : []    
+          likes : ['Test'],
+          disLikes : ['Test'],
+          postId : ''  
            }
            this.commonService.postStatus(postData);
            this.createForm();
@@ -78,11 +79,5 @@ export class PostStatusComponent implements OnInit {
 }
 
 
-updateP(){
-  // this.authService.updateProfile();
-}
 
-getD() {
-  this.authService.getUserDetails();
-}
 }

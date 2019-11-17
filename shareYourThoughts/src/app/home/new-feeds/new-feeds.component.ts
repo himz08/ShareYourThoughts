@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonServiceService } from 'src/app/shared/common-service.service';
 import { PostStatusInfo } from '../../Interfaces/interface';
+import { AuthService } from 'src/app/auth/auth.service';
+import { take, exhaustMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-feeds',
@@ -9,7 +11,7 @@ import { PostStatusInfo } from '../../Interfaces/interface';
 })
 export class NewFeedsComponent implements OnInit {
 
-  constructor(private commonService: CommonServiceService) { }
+  constructor(private commonService: CommonServiceService, private authService : AuthService) { }
   public posts: PostStatusInfo[];
   public isLoading: boolean = false;
   public isError: string = null;

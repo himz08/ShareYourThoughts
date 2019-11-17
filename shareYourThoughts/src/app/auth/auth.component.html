@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="options">
-        <button (click)="onSubmit(false)" *ngIf="isLoginMode" [disabled]="!loginForm.valid" type="submit"
+        <button (click)="onSubmit(false)" *ngIf="isLoginMode" [disabled]="!loginForm.controls['email'].valid || !loginForm.controls['password'].valid" type="submit"
           class="btn btn-primary">Log in</button>
         <span (click)="switchMode()" *ngIf="isLoginMode"> New User ? Signup</span>
 

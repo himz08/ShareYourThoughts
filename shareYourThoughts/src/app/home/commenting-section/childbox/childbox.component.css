@@ -1,0 +1,14 @@
+.post-btn {
+    background: #DDE2E7;
+    border: none;
+    color: #616e80;
+    font-size: 12px;
+}
+
+.post-btn:hover {
+    background: #ced3d7;
+}
+
+.form-group textarea {
+    font-size: 12px;
+}

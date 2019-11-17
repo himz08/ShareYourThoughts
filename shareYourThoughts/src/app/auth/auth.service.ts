@@ -4,7 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
-import { AuthResponseData, UpdateProfile } from '../Interfaces/interface'
+import { AuthResponseData, UpdateProfile, GetUserDetails } from '../Interfaces/interface'
 import { environment } from '../../environments/environment'
 
 
@@ -36,9 +36,7 @@ export class AuthService {
             email : email,
             password : pass,
             returnSecureToken : true
-        }).pipe(catchError(this.handleError) , tap(resData => {
-            // this.handleAuthentication(resData);
-        }))
+        }).pipe(catchError(this.handleError))
     }
 
     updateProfile(name : string, picUrl : string , token : string){
@@ -60,13 +58,10 @@ export class AuthService {
 
     }
 
-    getUserDetails() {
-        const loadedUser = this.fetchUserFromLocalStorage();
-        this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=' + environment.API_KEY, {
-            idToken : loadedUser.token
-        }).subscribe(data => {
-            console.log('DEtails', data)
-        })
+    getUserDetails(token) {
+      return  this.http.post<{kind : string, users : GetUserDetails[]}>('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=' + environment.API_KEY, {
+            idToken : token
+        }).pipe(catchError(this.handleError))
     }
 
     isLoggedIn() {
@@ -127,7 +122,8 @@ export class AuthService {
          this.user.next(user);
          this.autoLogout(+resposneData.expiresIn * 1000)
          localStorage.setItem('user', JSON.stringify(user));
-     }
+        this.route.navigate(['/home']);
+        }
 
      private fetchUserFromLocalStorage() : User{
         const user : {
