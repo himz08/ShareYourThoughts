@@ -5,7 +5,8 @@
       <fa-icon [icon]="faUserCircle"></fa-icon>
     </span>
     <h2 class="user-name hoverEffectToolbar"> {{user.displayName || 'Guest'}}</h2>
-    <h2 class="app-name"><span class="hoverEffectToolbar">ShareYourThoughts</span></h2>
+    <h2 class="app-name"><span class="hoverEffectToolbar">    <img class="logoSize" src="../../assets/logo.PNG">
+    </span></h2>
     <span *ngIf="isLoggedIn" (click)="onLoginLogoutClick(1)" class="hoverEffectToolbar logoutBtn"> Logout</span>
     <span *ngIf="!isLoggedIn" (click)="onLoginLogoutClick(2)" class="hoverEffectToolbar logoutBtn"> Login</span>
 
@@ -13,9 +14,12 @@
   <div class="header">
     <div class="profileInfo"> 
       <div class="profilePic">
+        <img *ngIf="isPicAvailable" style="height: 220px; border-radius: 10px;" [src]="user.photoUrl">
+        <fa-icon *ngIf="!isPicAvailable" style="font-size: 85px; color: #999;" [icon]="faUserCircle"></fa-icon>
+
       </div>
       <div class="userName">
-        {{ userName || 'Guest'}}
+        {{ user.displayName || 'Guest'}}
       </div>
     </div>
     <div class="appStatusBox">

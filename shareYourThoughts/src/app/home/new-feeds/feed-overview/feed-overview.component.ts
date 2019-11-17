@@ -4,6 +4,8 @@ import { CommonServiceService } from 'src/app/shared/common-service.service';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { faComments } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+
 
 
 
@@ -20,6 +22,7 @@ export class FeedOverviewComponent implements OnInit {
   faThumbsUp = faThumbsUp;
   faThumbsDown = faThumbsDown;
   faComments = faComments;
+  faUserCircle = faUserCircle;
 
   @Input() public postInfo : PostStatusInfo = {
     dateTime : null,
@@ -28,8 +31,8 @@ export class FeedOverviewComponent implements OnInit {
     picUrl : '',
     userId : '',
     userName : '',
-    likes : 0,
-    disLikes : 0
+    likes : [],
+    disLikes : []
   };
    dateTime = new Date(this.postInfo.dateTime);
 

@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   faUserCircle = faUserCircle;
   mobileQuery: MediaQueryList;
   isLoggedIn : boolean = false;
+  isPicAvailable : boolean = true;
  public user : {
     displayName : string,
     photoUrl : string
@@ -39,15 +40,21 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.autService.user.subscribe(user => {
+      this.isPicAvailable = false;
       console.log('Called', user)
       this.isLoggedIn = !!user;
       if(user) {
         this.user.displayName = user.displayName;
-        this.user.photoUrl = user.photoUrl;
+        if(user.photoUrl){
+          this.user.photoUrl = user.photoUrl;
+          this.isPicAvailable = true;
+          console.log('userr',this.user)
+        }
       }
       else {
-        this.user.displayName = 'Guest',
-        this.user.photoUrl = ''
+        this.user.displayName = 'Guest';
+        this.user.photoUrl = '';
+        this.isPicAvailable = false;
       }
     })
   }

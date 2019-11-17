@@ -5,8 +5,8 @@ export interface PostStatusInfo {
     tittle: string;
     message: string;
     picUrl: string;
-    likes: number;
-    disLikes: number;
+    likes: string[];
+    disLikes: string[];
 }
 
 export interface AuthResponseData {

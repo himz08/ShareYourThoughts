@@ -49,11 +49,11 @@ export class PostStatusComponent implements OnInit {
           userId : user.id,
           message : this.postForm.controls['post'].value,
           dateTime : new Date(),
-          userName : user.email,
+          userName : user.displayName,
           tittle : this.postForm.controls['postTittle'].value,
-          picUrl : '' ,
-          likes : 0,
-          disLikes : 0    
+          picUrl : user.photoUrl ,
+          likes : [],
+          disLikes : []    
            }
            this.commonService.postStatus(postData);
            this.createForm();

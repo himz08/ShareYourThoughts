@@ -2,13 +2,15 @@
 
     <div class="colOne">
         <div class="displayPic">
-            <div class="picBox">
-
+            <div *ngIf="postInfo.picUrl != ''" [ngStyle]="{ 'background-image': 'url(' + postInfo.picUrl + ')'}" class="picBox">
+                    <!-- <div style="background-image: url(http://i54.tinypic.com/4zuxif.jpg)"></div> -->
             </div>
+            <fa-icon *ngIf="!postInfo.picUrl != ''" style="font-size: 50px; color: #aaa;" [icon]="faUserCircle"></fa-icon>
+            
         </div>
 
         <div class="displayName">
-            Himanshu
+            {{postInfo.userName}}
         </div>
 
     </div>
